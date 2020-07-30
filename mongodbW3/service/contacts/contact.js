@@ -1,10 +1,27 @@
 const { ContactModel } = require('../../models')
 
-const addContact = (body) => {
-  return ContactModel.create({ ...body })
+const addContact = (userId, body) => {
+  return ContactModel.create({ ...body, owner: userId })
 }
-const listContacts = async() => {
-  return ContactModel.find({})
+const listContacts = async (userId, { limit = 20, page = 1, favorite }) => {
+  const { docs: contacts, totalDocs: total } = await ContactModel.paginate(
+    { owner: userId, favorite: favorite || { $in: [true, false] } },
+    {
+      limit,
+      page,
+      populate: {
+        path: 'owner',
+        select: 'email',
+      },
+    }
+  )
+
+  return {
+    contacts,
+    total,
+    limit,
+    page,
+  }
 }
 const getContactById = async(contactId) => {
   try {
@@ -18,9 +35,9 @@ const getContactById = async(contactId) => {
   }
 }
 
-const removeContact = async(contactId) => {
+const removeContact = async(userId, contactId) => {
   try {
-    return await ContactModel.findOneAndRemove({ _id: contactId })
+    return await ContactModel.findOneAndRemove({ _id: contactId, owner: userId })
     // return await ContactModel.findByIdAndDelete(contactId)
   } catch (error) {
     if (error.message.includes('Cast to ObjectId')) {

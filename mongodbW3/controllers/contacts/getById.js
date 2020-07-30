@@ -1,26 +1,26 @@
-const { getContactById } = require('../../service/contacts')
+const { getContactById, listContacts } = require('../../service/contacts')
 const { BadRequest } = require('http-errors')
 
 const getById = async(req, res, next) => {
+  const { id: userId } = req.user
   const { contactId } = req.params
-  const contact = await getContactById(contactId)
+  const options = req.query
 
-  if (!contact) {
-    // return res.status(404).json({
-    //   status: 'error',
-    //   code: 404,
-    //   message: `Contact with id: { ${contactId} } not foud`
-    // })
+  const allContacts = await listContacts(userId, options)
+  const contacts = allContacts.contacts
 
-    throw new BadRequest(`Contact with id: { ${contactId} } not foud`)
+  if (contacts.map((item) => String(item.id)).includes(contactId)) {
+    const selectContact = await getContactById(contactId, userId)
+    res.json({
+      statusL: 'success',
+      code: '200',
+      data: {
+        sesult: selectContact
+      }
+    })
   }
-  res.json({
-    status: 'success',
-    code: 200,
-    data: {
-      result: contact,
-    },
-  })
+
+  throw new BadRequest(`Contact with id: { ${contactId} } not foud`)
 }
 
 module.exports = getById

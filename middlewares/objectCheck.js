@@ -18,6 +18,7 @@ const objectCheck = (joiSchema) => {
 
       if (error) {
         const errorMessageJoi = error.message
+
         throw new BadRequest(errorMessageJoi)
 
         // оставил себе пример. За комментировал после того как я узнал что joi есть функция .error()
