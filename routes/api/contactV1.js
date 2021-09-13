@@ -5,16 +5,14 @@ const routes = require('express').Router()
 const { controllerWrapper } = require('../../middlewares/')
 const ctrlContacts = require('../../ctrl/contactsV1')
 
-routes.get('/', controllerWrapper(ctrlContacts.getAll))
+routes
+  .get('/', controllerWrapper(ctrlContacts.getAll))
+  .post('/', controllerWrapper(ctrlContacts.add))
 
-routes.get('/:contactId', controllerWrapper(ctrlContacts.getById))
-
-routes.post('/', controllerWrapper(ctrlContacts.add))
-
-routes.delete('/:contactId', controllerWrapper(ctrlContacts.delById))
-
-routes.patch('/:contactId', controllerWrapper(ctrlContacts.partialUpdate))
-
-routes.put('/:contactId', controllerWrapper(ctrlContacts.update))
+routes
+  .get('/:contactId', controllerWrapper(ctrlContacts.getById))
+  .delete('/:contactId', controllerWrapper(ctrlContacts.delById))
+  .patch('/:contactId', controllerWrapper(ctrlContacts.partialUpdate))
+  .put('/:contactId', controllerWrapper(ctrlContacts.update))
 
 module.exports = routes
