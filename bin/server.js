@@ -1,7 +1,10 @@
-const app = require('../app')
+const { app, REQUESTS } = require('../app')
 
-const PORT = process.env.PORT || 3000
+const { PORT = 9000 } = process.env // Моя любимая цифра
 
 app.listen(PORT, () => {
   console.log(`Server running. Use our API on port: ${PORT}`)
+  if (app.get('env') === 'development') {
+    console.table(REQUESTS)
+  }
 })
