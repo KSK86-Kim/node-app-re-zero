@@ -3,6 +3,7 @@ const logger = require('morgan')
 const cors = require('cors')
 
 const contactsV1Router = require('./routes/api/contactV1')
+const contactsV2Router = require('./routes/api/contactV2')
 
 const app = express()
 
@@ -24,11 +25,7 @@ const REQUESTS = {
 }
 
 app.use(REQUESTS.contactsV1.path, contactsV1Router)
-app.use(REQUESTS.contactsV2.path, (_, res, __) => {
-  res.send(
-    '<h1>Поживём увидим что тут будет)</h1>'
-  )
-})
+app.use(REQUESTS.contactsV2.path, contactsV2Router)
 
 app.use((req, res) => {
   res.status(404).json({ message: 'Not found' })
