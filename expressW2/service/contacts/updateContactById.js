@@ -9,7 +9,8 @@ async function update(contactId, updateInfo) {
     if (index === -1) {
       return null
     }
-    contacts[index] = updateInfo
+    const { id, dataCreat } = contacts[index]
+    contacts[index] = { id, dataCreat, ...updateInfo }
 
     await updateContacts(contacts)
     return contacts[index]

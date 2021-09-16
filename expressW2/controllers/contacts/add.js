@@ -1,5 +1,5 @@
-const { contactSchema } = require('../../validation/contactV1')
-const { addContact } = require('../../service/contactsV1')
+const { contactSchema } = require('../../validation/contact')
+const { addContact } = require('../../service/contacts')
 
 const add = async(req, res, next) => {
   const { error } = contactSchema.validate(req.body)

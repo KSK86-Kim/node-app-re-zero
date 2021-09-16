@@ -1,8 +1,8 @@
-const { putContactSchema } = require('../../validation/contactV1')
-const { partialUpdateContactById } = require('../../service/contactsV1')
+const { updateContactById } = require('../../service/contacts')
+const { contactSchema } = require('../../validation/contact')
 
-const partialUpdate = async(req, res, next) => {
-  const { error } = putContactSchema.validate(req.body)
+const update = async(req, res, next) => {
+  const { error } = contactSchema.validate(req.body)
   if (error) {
     return res.status(400).json({
       status: 'error',
@@ -10,8 +10,9 @@ const partialUpdate = async(req, res, next) => {
       message: error.message
     })
   }
+
   const { contactId } = req.params
-  const updateContact = await partialUpdateContactById(contactId, req.body)
+  const updateContact = await updateContactById(contactId, req.body)
 
   if (!updateContact) {
     return res.status(404).json({
@@ -24,4 +25,5 @@ const partialUpdate = async(req, res, next) => {
     updateContact
   })
 }
-module.exports = partialUpdate
+
+module.exports = update

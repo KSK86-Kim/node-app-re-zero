@@ -1,4 +1,4 @@
-const { removeContact } = require('../../service/contactsV1')
+const { removeContact } = require('../../service/contacts')
 const delById = async(req, res, next) => {
   const { contactId } = req.params
   const deleteContact = await removeContact(contactId)
