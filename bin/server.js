@@ -3,7 +3,7 @@ const { app, REQUESTS } = require('../app')
 
 require('dotenv').config()
 
-const { DB_KEY, PORT = 9000 } = process.env
+const { DB_HOST, PORT = 9000 } = process.env
 
 const optionDB = {
   useNewUrlParser: true,
@@ -11,7 +11,7 @@ const optionDB = {
 }
 
 mongoose
-  .connect(DB_KEY, optionDB)
+  .connect(DB_HOST, optionDB)
   .then(() => {
     console.log('Database connection successful')
 

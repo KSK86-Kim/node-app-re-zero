@@ -2,8 +2,8 @@ const express = require('express')
 const logger = require('morgan')
 const cors = require('cors')
 
-const contactsV1Router = require('./routes/api/contactV1')
-const contactsV2Router = require('./routes/api/contactV2')
+const expressContactsRouter = require('./expressW2/routes/api/contact')
+const mongodbContactsRouter = require('./mongodbW3/routes/api/contact')
 
 const app = express()
 
@@ -14,21 +14,26 @@ app.use(cors())
 app.use(express.json())
 
 const REQUESTS = {
-  contactsV1: {
+  expressContacts: {
     path: '/api/v1/contacts',
     message: 'Путь на котором находится 2 дз'
   },
-  contactsV2: {
+  mongodbContacts: {
     path: '/api/v2/contacts',
     message: 'Путь на котором будет находиться 3-6 дз'
   },
 }
 
-app.use(REQUESTS.contactsV1.path, contactsV1Router)
-app.use(REQUESTS.contactsV2.path, contactsV2Router)
+app.use(REQUESTS.expressContacts.path, expressContactsRouter)
+app.use(REQUESTS.mongodbContacts.path, mongodbContactsRouter)
 
 app.use((req, res) => {
-  res.status(404).json({ message: 'Not found' })
+  const { originalUrl } = req
+  res.status(404).json({
+    status: 'error',
+    code: 404,
+    message: `Not found url: { ${originalUrl} }`
+  })
 })
 
 app.use((err, req, res, next) => {
