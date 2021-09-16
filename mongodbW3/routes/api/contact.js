@@ -2,7 +2,6 @@ const routes = require('express').Router()
 
 const {
   controllerWrapper,
-  controllerWrapperUpdate,
   objectCheck,
 } = require('../../../middlewares/')
 
@@ -15,15 +14,28 @@ const {
 const ctrlContacts = require('../../controllers/contacts')
 
 routes
-  .get('/test', objectCheck(), controllerWrapperUpdate(ctrlContacts.test, joiNewContactSchema))
-  .get('/', controllerWrapper(ctrlContacts.getAll))
-  .post('/', objectCheck(), controllerWrapperUpdate(ctrlContacts.add, joiNewContactSchema))
+  .get('/test',
+    objectCheck(joiUpdateContactSchema),
+    controllerWrapper(ctrlContacts.test))
+  .get('/',
+    controllerWrapper(ctrlContacts.getAll))
+  .post('/',
+    objectCheck(joiNewContactSchema),
+    controllerWrapper(ctrlContacts.add))
 
 routes
-  .get('/:contactId', controllerWrapper(ctrlContacts.getById))
-  .delete('/:contactId', controllerWrapper(ctrlContacts.delById))
-  .put('/:contactId', objectCheck(), controllerWrapperUpdate(ctrlContacts.update, joiNewContactSchema))
-  .patch('/:contactId', objectCheck(), controllerWrapperUpdate(ctrlContacts.update, joiUpdateContactSchema))
-  .patch('/:contactId/favorite', objectCheck(), controllerWrapperUpdate(ctrlContacts.update, joiUpdateStatusContactSchema))
+  .get('/:contactId',
+    controllerWrapper(ctrlContacts.getById))
+  .delete('/:contactId',
+    controllerWrapper(ctrlContacts.delById))
+  .put('/:contactId',
+    objectCheck(joiNewContactSchema),
+    controllerWrapper(ctrlContacts.update))
+  .patch('/:contactId',
+    objectCheck(joiUpdateContactSchema),
+    controllerWrapper(ctrlContacts.update))
+  .patch('/:contactId/favorite',
+    objectCheck(joiUpdateStatusContactSchema),
+    controllerWrapper(ctrlContacts.update))
 
 module.exports = routes

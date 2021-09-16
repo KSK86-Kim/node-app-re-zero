@@ -28,10 +28,11 @@ app.use(REQUESTS.expressContacts.path, expressContactsRouter)
 app.use(REQUESTS.mongodbContacts.path, mongodbContactsRouter)
 
 app.use((req, res) => {
-  const { originalUrl } = req
+  const { originalUrl, method } = req
   res.status(404).json({
     status: 'error',
     code: 404,
+    method,
     message: `Not found url: { ${originalUrl} }`
   })
 })

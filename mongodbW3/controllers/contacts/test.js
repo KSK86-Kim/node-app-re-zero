@@ -1,8 +1,8 @@
-const test = async(req, res, next, joi) => {
-  console.log(req)
-  console.log(typeof joi)
+const test = async(req, res, next) => {
+  // console.log(req)
+  // console.log(typeof joi)
 
-  const { error } = joi.validate(req.body)
+  // const { error } = joi.validate(req.body)
 
   res.json({
     baseUrl: req.baseUrl,
@@ -13,7 +13,7 @@ const test = async(req, res, next, joi) => {
     body: req.body,
     query: req.query,
     // joi: joi
-    joiError: error.message
+    // joiError: error.message
   })
 }
 

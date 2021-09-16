@@ -1,14 +1,6 @@
 const { updateContactById } = require('../../service/contacts')
 
-const update = async(req, res, _, joiSchema) => {
-  const { error } = joiSchema.validate(req.body)
-  if (error) {
-    return res.status(400).json({
-      status: 'error',
-      code: '400',
-      message: error.message
-    })
-  }
+const update = async(req, res) => {
   const { contactId } = req.params
 
   const updatedContact = await updateContactById(contactId, req.body)
