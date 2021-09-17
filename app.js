@@ -16,7 +16,7 @@ app.use(express.json())
 const REQUESTS = {
   expressContacts: {
     path: '/api/v1/contacts',
-    message: 'Путь на котором находится 2 дз'
+    message: 'Путь на котором находится 2-e дз'
   },
   mongodbContacts: {
     path: '/api/v2/contacts',
@@ -33,13 +33,17 @@ app.use((req, res) => {
     status: 'error',
     code: 404,
     method,
-    message: `Not found url: { ${originalUrl} }`
+    message: `Not found route on the url: { ${originalUrl} }`
   })
 })
 
 app.use((err, req, res, next) => {
   const { status = 500, message = 'Server error' } = err
-  res.status(status).json({ message })
+  res.status(status).json({
+    status: 'error',
+    code: status,
+    message
+  })
 })
 
 module.exports = { app, REQUESTS }

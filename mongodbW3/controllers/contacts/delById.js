@@ -1,14 +1,11 @@
 const { removeContact } = require('../../service/contacts')
+const { BadRequest } = require('http-errors')
 
 const delById = async(req, res, next) => {
   const { contactId } = req.params
   const deleteContact = await removeContact(contactId)
   if (!deleteContact) {
-    return res.status(404).json({
-      status: 'error',
-      code: '404',
-      message: `Contact with id: { ${contactId} } not found`
-    })
+    throw new BadRequest(`Contact with id: { ${contactId} } not foud`)
   }
   res.json({
     code: '204',

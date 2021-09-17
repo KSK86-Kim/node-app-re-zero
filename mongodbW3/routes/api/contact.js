@@ -17,6 +17,7 @@ routes
   .get('/test',
     objectCheck(joiUpdateContactSchema),
     controllerWrapper(ctrlContacts.test))
+
   .get('/',
     controllerWrapper(ctrlContacts.getAll))
   .post('/',
@@ -24,6 +25,10 @@ routes
     controllerWrapper(ctrlContacts.add))
 
 routes
+  .get('/test/:id',
+    objectCheck(joiUpdateContactSchema),
+    controllerWrapper(ctrlContacts.testId))
+
   .get('/:contactId',
     controllerWrapper(ctrlContacts.getById))
   .delete('/:contactId',
@@ -34,6 +39,7 @@ routes
   .patch('/:contactId',
     objectCheck(joiUpdateContactSchema),
     controllerWrapper(ctrlContacts.update))
+
   .patch('/:contactId/favorite',
     objectCheck(joiUpdateStatusContactSchema),
     controllerWrapper(ctrlContacts.update))

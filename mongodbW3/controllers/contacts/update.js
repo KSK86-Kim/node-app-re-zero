@@ -1,4 +1,5 @@
 const { updateContactById } = require('../../service/contacts')
+const { BadRequest } = require('http-errors')
 
 const update = async(req, res) => {
   const { contactId } = req.params
@@ -6,11 +7,7 @@ const update = async(req, res) => {
   const updatedContact = await updateContactById(contactId, req.body)
 
   if (!updatedContact) {
-    return res.status(404).json({
-      status: 'error',
-      code: '404',
-      message: `Contact with id: { ${contactId} } not found`
-    })
+    throw new BadRequest(`Contact with id: { ${contactId} } not foud`)
   }
   return res.json({
     status: 'success',
