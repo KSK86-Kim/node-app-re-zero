@@ -1,6 +1,7 @@
 const express = require('express')
 const logger = require('morgan')
 const cors = require('cors')
+const helmet = require('helmet')
 
 const expressContactsRouter = require('./expressW2/routes/api/contact')
 const mongodbContactsRouter = require('./mongodbW3/routes/api/contact')
@@ -11,6 +12,7 @@ const formatsLogger = app.get('env') === 'development' ? 'dev' : 'short'
 
 app.use(logger(formatsLogger))
 app.use(cors())
+app.use(helmet())
 app.use(express.json())
 
 const REQUESTS = {
