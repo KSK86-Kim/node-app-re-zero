@@ -9,28 +9,43 @@ const listContacts = async() => {
 const getContactById = async(contactId) => {
   try {
     return await ContactModel.findOne({ _id: contactId })
+    // return await ContactModel.findById(contactId)
   } catch (error) {
-    return null
+    if (error.message.includes('Cast to ObjectId')) {
+      return null
+    }
+    throw error
   }
 }
 
 const removeContact = async(contactId) => {
   try {
     return await ContactModel.findOneAndRemove({ _id: contactId })
+    // return await ContactModel.findByIdAndDelete(contactId)
   } catch (error) {
-    return null
+    if (error.message.includes('Cast to ObjectId')) {
+      return null
+    }
+    throw error
   }
 }
 
 const updateContactById = async(contactId, data) => {
   try {
-    return await ContactModel.findByIdAndUpdate(
-      contactId,
+    // return await ContactModel.findByIdAndUpdate(
+    //   contactId,
+    //   data,
+    //   { new: true, }
+    // )
+    return await ContactModel.findOneAndUpdate(
+      { _id: contactId },
       data,
-      { new: true, }
-    )
+      { new: true, })
   } catch (error) {
-    return null
+    if (error.message.includes('Cast to ObjectId')) {
+      return null
+    }
+    throw error
   }
 }
 

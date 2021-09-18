@@ -20,7 +20,7 @@ const objectCheck = (joiSchema) => {
         const errorMessageJoi = error.message
         throw new BadRequest(errorMessageJoi)
 
-        // оставила себе пример. За комментировал после того как я узнал что joi есть функция .error()
+        // оставил себе пример. За комментировал после того как я узнал что joi есть функция .error()
         // let newErrorMessage
         // switch (errorMessageJoi) {
         //   case '"name" is required':

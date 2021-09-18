@@ -3,8 +3,8 @@ const logger = require('morgan')
 const cors = require('cors')
 const helmet = require('helmet')
 
-const expressContactsRouter = require('./expressW2/routes/api/contact')
-const mongodbContactsRouter = require('./mongodbW3/routes/api/contact')
+const expressApi = require('./expressW2/routes/api')
+const mongodbAPI = require('./mongodbW3/routes/api')
 
 const app = express()
 
@@ -24,10 +24,15 @@ const REQUESTS = {
     path: '/api/v2/contacts',
     message: 'Путь на котором будет находиться 3-6 дз'
   },
+  mongodbUsers: {
+    path: '/api/v2/users',
+    message: 'Путь на котором будет находиться 4-6 дз'
+  },
 }
 
-app.use(REQUESTS.expressContacts.path, expressContactsRouter)
-app.use(REQUESTS.mongodbContacts.path, mongodbContactsRouter)
+app.use(REQUESTS.expressContacts.path, expressApi.routesContacts)
+app.use(REQUESTS.mongodbContacts.path, mongodbAPI.routesContacts)
+app.use(REQUESTS.mongodbUsers.path, mongodbAPI.routesUsers)
 
 app.use((req, res) => {
   const { originalUrl, method } = req
