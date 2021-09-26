@@ -1,6 +1,7 @@
 const { Schema, model, SchemaTypes } = require('mongoose')
 const Joi = require('joi')
 const { emailRegexp } = require('../../utils/regulars')
+const mongoosePaginate = require('mongoose-paginate-v2')
 
 const contactSchema = Schema({
   name: {
@@ -33,6 +34,7 @@ const contactSchema = Schema({
 
 }, { versionKey: false, timestamps: true })
 
+contactSchema.plugin(mongoosePaginate)
 const ContactModel = model('contact', contactSchema)
 
 const errMessageName = 'Name is required and must contain at least two letters'

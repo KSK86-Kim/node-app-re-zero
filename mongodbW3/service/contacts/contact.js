@@ -23,6 +23,7 @@ const listContacts = async (userId, { limit = 20, page = 1, favorite }) => {
     page,
   }
 }
+
 const getContactById = async(contactId) => {
   try {
     return await ContactModel.findOne({ _id: contactId })
@@ -35,19 +36,21 @@ const getContactById = async(contactId) => {
   }
 }
 
-const removeContact = async(userId, contactId) => {
-  try {
-    return await ContactModel.findOneAndRemove({ _id: contactId, owner: userId })
-    // return await ContactModel.findByIdAndDelete(contactId)
-  } catch (error) {
-    if (error.message.includes('Cast to ObjectId')) {
-      return null
-    }
-    throw error
-  }
+// const removeContact = async(userId, contactId) => {
+//   try {
+//     return ContactModel.findOneAndRemove({ _id: contactId, owner: userId })
+//   } catch (error) {
+//     if (error.message.includes('Cast to ObjectId')) {
+//       return null
+//     }
+//     throw error
+//   }
+// }
+const removeContact = async({ userId, contactId }) => {
+  return await ContactModel.findOneAndRemove({ _id: contactId, owner: userId })
 }
 
-const updateContactById = async(contactId, data) => {
+const updateContactById = async({ userId, contactId, upInfo }) => {
   try {
     // return await ContactModel.findByIdAndUpdate(
     //   contactId,
@@ -55,9 +58,12 @@ const updateContactById = async(contactId, data) => {
     //   { new: true, }
     // )
     return await ContactModel.findOneAndUpdate(
-      { _id: contactId },
-      data,
-      { new: true, })
+      { _id: contactId, owner: userId },
+      upInfo,
+      { new: true, }).populate({
+      path: 'owner',
+      select: 'email'
+    })
   } catch (error) {
     if (error.message.includes('Cast to ObjectId')) {
       return null

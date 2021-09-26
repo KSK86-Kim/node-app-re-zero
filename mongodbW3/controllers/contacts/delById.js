@@ -8,14 +8,17 @@ const delById = async(req, res, next) => {
 
   const allContacts = await listContacts(userId, options)
   const contacts = allContacts.contacts
+  console.log(contacts.map((item) => String(item.id)).includes(contactId))
+
   if (contacts.map((item) => String(item.id)).includes(contactId)) {
-    const deleteContact = await removeContact(contactId, userId)
+    await removeContact({ userId, contactId })
     res.json({
       code: '204',
-      deleteContact
+      message: `contact with id: { ${contactId} } deleted`,
     })
+  } else {
+    throw new BadRequest(`Contact with id: { ${contactId} } not foud`)
   }
-  throw new BadRequest(`Contact with id: { ${contactId} } not foud`)
 }
 
 module.exports = delById
