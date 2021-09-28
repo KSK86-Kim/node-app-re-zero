@@ -1,8 +1,8 @@
 const { updateToken } = require('../../service/users')
 
 const logout = async (req, res, next) => {
-  const id = req.user.id
-  await updateToken(id, null)
+  const { id: userId } = req.user
+  await updateToken(userId, null)
   return res.json({
     status: 'success',
     code: 204,
