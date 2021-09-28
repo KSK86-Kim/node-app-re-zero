@@ -4,6 +4,7 @@ const delById = require('./delById')
 const add = require('./add')
 const update = require('./update')
 const test = require('./test')
+const testId = require('./testId')
 
 module.exports = {
   getAll,
@@ -11,5 +12,6 @@ module.exports = {
   delById,
   add,
   update,
-  test
+  test,
+  testId
 }
