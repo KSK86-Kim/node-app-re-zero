@@ -12,6 +12,8 @@ const test = async(req, res, next) => {
     params: req.params,
     body: req.body,
     query: req.query,
+    asd: 'qwe',
+    file: req.file
     // joi: joi
     // joiError: error.message
   })

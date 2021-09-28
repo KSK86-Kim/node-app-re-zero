@@ -15,13 +15,11 @@ const create = ({ password, ...other }) => {
 }
 
 const update = (id, body) => {
-  return UserModel.findByIdAndUpdate(id, body, {
-    new: true,
-  })
+  return UserModel.findByIdAndUpdate(id, body, { new: true, })
 }
 
 const updateToken = (id, token) => {
-  return UserModel.findByIdAndUpdate(id, { token })
+  return UserModel.findByIdAndUpdate(id, { token }, { new: true, })
 }
 
 module.exports = {
@@ -29,5 +27,5 @@ module.exports = {
   findOne,
   create,
   update,
-  updateToken
+  updateToken,
 }

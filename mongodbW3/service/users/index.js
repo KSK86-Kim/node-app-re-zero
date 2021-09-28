@@ -3,7 +3,7 @@ const {
   findOne,
   create,
   update,
-  updateToken
+  updateToken,
 } = require('./users')
 
 module.exports = {
@@ -11,5 +11,5 @@ module.exports = {
   findOne,
   create,
   update,
-  updateToken
+  updateToken,
 }

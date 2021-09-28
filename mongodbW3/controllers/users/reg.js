@@ -13,13 +13,16 @@ const reg = async (req, res, next) => {
   const newUser = await create({
     ...req.body,
   })
+  const { subscription, avatarURL, id } = newUser
 
   res.status(201).json({
     status: 'success',
     code: 201,
     data: {
-      id: newUser._id,
-      email: newUser.email,
+      id,
+      email,
+      subscription,
+      avatarURL,
     },
   })
 }

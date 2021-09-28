@@ -5,6 +5,7 @@ const helmet = require('helmet')
 
 const expressApi = require('./expressW2/routes/api')
 const mongodbAPI = require('./mongodbW3/routes/api')
+const { avatarDir } = require('./helpers/routerDir')
 
 const app = express()
 
@@ -28,11 +29,21 @@ const REQUESTS = {
     path: '/api/v2/users',
     message: 'Путь на котором будет находиться 4-6 дз'
   },
+  testStatic: {
+    path: '/avatars',
+    message: 'Путь для проверки статики { /avatars/pikachu.jpg }'
+  },
+  dbImg: {
+    path: '/public/avatars',
+    message: 'Путь для хранения картинок'
+  }
 }
 
 app.use(REQUESTS.expressContacts.path, expressApi.routesContacts)
 app.use(REQUESTS.mongodbContacts.path, mongodbAPI.routesContacts)
 app.use(REQUESTS.mongodbUsers.path, mongodbAPI.routesUsers)
+app.use(REQUESTS.testStatic.path, express.static(avatarDir))
+app.use(REQUESTS.dbImg.path, express.static(avatarDir))
 
 app.use((req, res) => {
   const { originalUrl, method } = req

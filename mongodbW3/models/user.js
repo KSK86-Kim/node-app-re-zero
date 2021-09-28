@@ -1,6 +1,8 @@
 const { Schema, model } = require('mongoose')
 const bCrypt = require('bcryptjs')
 const Joi = require('Joi')
+const gravatar = require('gravatar')
+
 const { emailRegexp } = require('../../utils/regulars')
 
 const userSchema = Schema(
@@ -25,6 +27,12 @@ const userSchema = Schema(
       type: String,
       default: null,
     },
+    avatarURL: {
+      type: String,
+      default: function () {
+        return gravatar.url(this.email, { s: '250' }, true)
+      }
+    }
   },
   { versionKey: false, timestamps: true }
 )
