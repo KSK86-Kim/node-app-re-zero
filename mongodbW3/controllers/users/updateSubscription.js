@@ -5,7 +5,7 @@ const { update } = require('../../service/users')
 
 const updateSubscription = async (req, res, next) => {
   try {
-    const userId = req.user.id
+    const { id: userId } = req.user
 
     const updateSubscription = await update(userId, {
       ...req.body,
