@@ -30,9 +30,6 @@ const repeatedVerify = async(req, res) => {
   }
 
   await sendMail(newEmail)
-
-  const link = `http://localhost:4000/api/users/verify/${user.verifyToken}`
-  await sendMail({ email, link })
   res.json({
     status: 'success',
     code: 200,
