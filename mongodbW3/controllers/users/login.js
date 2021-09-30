@@ -1,4 +1,5 @@
 const { findOne, updateToken } = require('../../service/users')
+const createError = require('http-errors')
 
 const jwt = require('jsonwebtoken')
 require('dotenv').config()
@@ -19,6 +20,9 @@ const login = async (req, res) => {
     })
   }
 
+  if (!user.verify) {
+    throw createError(400, 'Not confirmed email ')
+  }
   const id = user._id
   const payload = { id }
 

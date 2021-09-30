@@ -2,6 +2,7 @@ const { Schema, model } = require('mongoose')
 const bCrypt = require('bcryptjs')
 const Joi = require('Joi')
 const gravatar = require('gravatar')
+const { v4 } = require('uuid')
 
 const { emailRegexp } = require('../../utils/regulars')
 
@@ -32,7 +33,15 @@ const userSchema = Schema(
       default: function () {
         return gravatar.url(this.email, { s: '250' }, true)
       }
-    }
+    },
+    verify: {
+      type: Boolean,
+      default: false,
+    },
+    verifyToken: {
+      type: String,
+      required: [true, 'Verify token is required'],
+    },
   },
   { versionKey: false, timestamps: true }
 )
@@ -42,6 +51,9 @@ userSchema.methods.setPassword = function(password) {
 }
 userSchema.methods.validPassword = function(password) {
   return bCrypt.compareSync(password, this.password)
+}
+userSchema.methods.createVerifyToken = function() {
+  this.verifyToken = v4()
 }
 const UserModel = model('user', userSchema)
 

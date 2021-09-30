@@ -4,6 +4,7 @@ const logout = require('./logout')
 const current = require('./current')
 const updateSubscription = require('./updateSubscription')
 const updateImg = require('./updateImg')
+const verify = require('./verify')
 
 module.exports = {
   reg,
@@ -11,5 +12,6 @@ module.exports = {
   logout,
   current,
   updateSubscription,
-  updateImg
+  updateImg,
+  verify
 }

@@ -11,7 +11,7 @@ const reg = async (req, res, next) => {
   }
 
   const newUser = await create({
-    ...req.body,
+    ...req.body
   })
   const { subscription, avatarURL, id } = newUser
 

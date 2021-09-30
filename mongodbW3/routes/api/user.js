@@ -36,4 +36,7 @@ routes
     upload.single('image'),
     controllerWrapper(ctrlUser.updateImg))
 
+routes
+  .get('/verify/:verificationToken', controllerWrapper(ctrlUser.verify))
+
 module.exports = routes
