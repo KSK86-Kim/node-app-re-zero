@@ -5,6 +5,7 @@ const current = require('./current')
 const updateSubscription = require('./updateSubscription')
 const updateImg = require('./updateImg')
 const verify = require('./verify')
+const repeatedVerify = require('./repeatedVerify')
 
 module.exports = {
   reg,
@@ -13,5 +14,6 @@ module.exports = {
   current,
   updateSubscription,
   updateImg,
-  verify
+  verify,
+  repeatedVerify
 }

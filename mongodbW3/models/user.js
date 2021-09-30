@@ -70,9 +70,14 @@ const joiUpdateSubscriptiUserSchema = Joi.object({
   subscription: Joi.string().valid('starter', 'pro', 'business').required(),
 })
 
+const joiRepeatedVerifySchema = Joi.object({
+  email: Joi.string().email().required(),
+})
+
 module.exports = {
   UserModel,
   joiNewUserSchema,
   joiUpdatePasswordUserSchema,
-  joiUpdateSubscriptiUserSchema
+  joiUpdateSubscriptiUserSchema,
+  joiRepeatedVerifySchema
 }

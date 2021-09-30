@@ -5,7 +5,8 @@ const ctrlUser = require('../../controllers/users')
 const {
   joiNewUserSchema,
   // joiUpdatePasswordUserSchema,
-  joiUpdateSubscriptiUserSchema
+  joiUpdateSubscriptiUserSchema,
+  joiRepeatedVerifySchema
 } = require('../../models/user')
 
 // routes
@@ -21,6 +22,9 @@ routes
   .post('/logout',
     authorization,
     controllerWrapper(ctrlUser.logout))
+  .post('/verify',
+    objectCheck(joiRepeatedVerifySchema),
+    controllerWrapper(ctrlUser.repeatedVerify))
 
   .get('/current',
     authorization,
